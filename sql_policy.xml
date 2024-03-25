@@ -1,0 +1,23 @@
+<sql-data-source>
+    <connection-info>
+        <connection-string>
+            Server=tcp:xinxuedbsvr.database.windows.net,1433;Initial Catalog=xinxuedb;Persist Security Info=False;User ID=jack;Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+        </connection-string>
+    </connection-info>
+    <request single-result="true">
+        <sql-statement>
+            SELECT 
+                f.[ProductId] AS [id]
+                f.[Name] AS [name]
+                f.[Color] AS [color]
+            FROM [SalesLT.Product] f
+            WHERE @familyId = f.[ProductId] 
+        </sql-statement> 
+        <parameters> 
+            <parameter name="@familyId">       
+                @(context.GraphQL.Arguments["id"])
+            </parameter> 
+        </parameters> 
+    </request>
+    <response />
+</sql-data-source>
